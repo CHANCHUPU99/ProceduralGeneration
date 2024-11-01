@@ -7,13 +7,12 @@ public class TileTypes : MonoBehaviour
     public bool bIsAlive;
     public bool bIsSafeToWalk;
     public float walkSpeed;
-    public tileTypes tileTypesEnum;
+    //public tileTypes tileTypesEnum;
     public TileTypes() {
         bIsAlive = false;
     }
-    public TileTypes(bool _isAlive, tileTypes _objType, bool _isSafeToWalk, float _walkSpeed) {
+    public TileTypes(bool _isAlive, bool _isSafeToWalk, float _walkSpeed) {
         bIsAlive = _isAlive;
-        tileTypesEnum = _objType;
         bIsSafeToWalk = _isSafeToWalk;
         walkSpeed = _walkSpeed;
     }
@@ -34,19 +33,12 @@ public class TileTypes : MonoBehaviour
         return walkSpeed;
     }
 
-    public void setTileType(tileTypes _tileTypesEnum) {
-        tileTypesEnum = _tileTypesEnum;
-    }
+    //public void setTileType(tileTypes _tileTypesEnum) {
+    //    tileTypesEnum = _tileTypesEnum;
+    //}
 
-    public tileTypes GetTileType() {
-        return tileTypesEnum;
-    }
+    //public tileTypes GetTileType() {
+    //    return tileTypesEnum;
+    //}
 
-    public enum tileTypes {
-        Grass,
-        Mud,
-        Spikes,
-        Stone,
-        Water
-    }
 }

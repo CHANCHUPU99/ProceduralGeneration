@@ -23,6 +23,7 @@ public class LevelGeneration : MonoBehaviour
                 //theGrid[i, c] = new TileTypes(false,);
             }
         }
+
     }
 
     private void Update() {
@@ -170,4 +171,24 @@ public class LevelGeneration : MonoBehaviour
         }
         Debug.Log($"Estado actual de theGrid:\n{gridState}");
     }
+
+    //void threeFirstTiles() {
+    //    int randomTile = 3;
+    //    int randomRow;
+    //    int randomCol;
+    //    TileTypes.tileTypes[] tileTypeeeessss = {
+    //    TileTypes.tileTypes.Grass,
+    //    TileTypes.tileTypes.Mud,
+    //    TileTypes.tileTypes.Spikes,
+    //    TileTypes.tileTypes.Stone,
+    //    TileTypes.tileTypes.Water
+    //};
+
+    //    for (int i= 0; i < randomTile; i++) {
+    //        randomRow = Random.Range(0, rows);
+    //        randomCol = Random.Range(0, columns);
+    //        TileTypes.tileTypes randomTileType = tileTypeeeessss[Random.Range(0,tileTypeeeessss.Length)];
+    //        theGrid[randomRow, randomCol] = newRandomTile;
+    //    }
+    //}
 }

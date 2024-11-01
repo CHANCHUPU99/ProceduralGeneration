@@ -7,7 +7,9 @@ public class Grass : TileTypes
     // Start is called before the first frame update
     void Start()
     {
-        
+        bIsAlive = true;        
+        bIsSafeToWalk = true;    
+        walkSpeed = 1.0f;
     }
 
     // Update is called once per frame
