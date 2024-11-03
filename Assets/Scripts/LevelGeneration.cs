@@ -17,8 +17,8 @@ public class LevelGeneration : MonoBehaviour
     public Tile stoneTile;
     public Tile waterTile;
 
-    public int rows = 350;
-    public int columns = 350;
+    public int rows = 145;
+    public int columns = 145;
     private bool simulationIsRunning;
     public Tile deadTile;
 
@@ -154,12 +154,17 @@ public class LevelGeneration : MonoBehaviour
         for (int i = 0; i < rows; i++) {
             for (int c = 0; c < columns; c++) {
                 Vector3Int currentGridPos = new Vector3Int(i, c, 0);
-                if (theGrid[i, c].bIsAlive) {
-                    tilemap.SetTile(currentGridPos, drawedTile);
-                    userTilemap.SetTile(currentGridPos, drawedTile);
-                } else {
-                    tilemap.SetTile(currentGridPos, null);
-                    userTilemap.SetTile(currentGridPos, null);
+                TileTypes tile = theGrid[i, c];
+                if (tile is Grass) {
+                    tilemap.SetTile(currentGridPos, grassTile);
+                } else if (tile is Mud) {
+                    tilemap.SetTile(currentGridPos, mudTile);
+                } else if (tile is Water) {
+                    tilemap.SetTile(currentGridPos, waterTile);
+                } else if (tile is Spikes) {
+                    tilemap.SetTile(currentGridPos, spikesTile);
+                } else if (tile is Stone) {
+                    tilemap.SetTile(currentGridPos, stoneTile);
                 }
             }
         }

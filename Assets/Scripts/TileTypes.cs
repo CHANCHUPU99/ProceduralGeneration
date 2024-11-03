@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileTypes : MonoBehaviour
+public class TileTypes 
 {
     public bool bIsAlive;
     public bool bIsSafeToWalk;
