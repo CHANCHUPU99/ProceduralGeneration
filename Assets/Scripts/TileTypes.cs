@@ -17,6 +17,13 @@ public class TileTypes : MonoBehaviour
         walkSpeed = _walkSpeed;
     }
 
+    public virtual void tileValues() {
+
+    }
+
+    public virtual TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs) {
+        return null;
+    }
     public void setIsSafeToWalk(bool _isSafeToWalk) {
         bIsSafeToWalk = _isSafeToWalk;
     }

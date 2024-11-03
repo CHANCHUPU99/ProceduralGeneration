@@ -5,16 +5,21 @@ using UnityEngine;
 public class Grass : TileTypes
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        bIsAlive = true;        
-        bIsSafeToWalk = true;    
+    public Grass() {
+        bIsAlive = true;
+        bIsSafeToWalk = true;
         walkSpeed = 1.0f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs) {
+        if (grassNeighs >= 3) {
+            return new Grass();
+        } else if (waterNeighs >= 2) {
+            return new Water();
+        } else if (stoneNeighs >= 1) {
+            return new Stone();
+        } 
+        return this;
     }
 }
+
