@@ -17,29 +17,41 @@ public class LevelGeneration : MonoBehaviour
     public Tile stoneTile;
     public Tile waterTile;
 
-    public int rows = 145;
-    public int columns = 145;
+    public int rows = 146;
+    public int columns = 146;
+    public int initialRowPos = 0;
+    public int initialColumnPos=0;
     private bool simulationIsRunning;
     public Tile deadTile;
 
-    //private void Start() {
-    //    theGrid = new TileTypes[rows, columns];
-    //    for(int i = 0; i < rows; i++) {
-    //        for(int c = 0; c < columns; c++) {
-    //            theGrid[i, c] = randomTile(); 
-    //        }
-    //    }
-    //    updateVisualGrid(); 
-    //}
-
     //para que inicie con el boton
     private void initializeLevelGeneration() {
+        //theGrid = new TileTypes[rows, columns];
+        //initialRowPos = rows / 2;
+        //initialColumnPos = columns/2;
+        //theGrid[initialRowPos, initialColumnPos] = randomTile();
+        //for(int i = 0;i < rows; i++) {
+        //    for(int c = 0; c < columns; c++) {
+        //        if (i != initialRowPos && i!= initialColumnPos) {
+        //            theGrid[i, c] = new Grass();
+        //        }
+        //    }
+        //}
+        //proceduralGenerationRules();
+        //updateVisualGrid();
         theGrid = new TileTypes[rows, columns];
-        for(int i = 0;i < rows; i++) {
-            for(int c = 0; c < columns; c++) {
+        for (int i = 0; i < rows; i++) {
+            for (int c = 0; c < columns; c++) {
                 theGrid[i, c] = randomTile();
             }
         }
+        //updateVisualGrid();
+        //theGrid[initialRowPos, initialColumnPos] = randomTile();
+        //if (Random.value > 0.5) {
+        //    theGrid[initialRowPos, initialColumnPos] = new Grass();
+        //} else {
+        //    theGrid[initialRowPos,initialColumnPos] = new Water();
+        //}
         proceduralGenerationRules();
         updateVisualGrid();
     }
@@ -47,13 +59,13 @@ public class LevelGeneration : MonoBehaviour
 
     private TileTypes randomTile() {
         float randomTileF = Random.value;
-        if (randomTileF < 0.5f) {
+        if (randomTileF < 0.3f) {
             return new Grass();
-        } else if (randomTileF < 0.7f) {
+        } else if (randomTileF < 0.5f) {
             return new Mud();
-        } else if (randomTileF < 0.85f) {
+        } else if (randomTileF < 0.7f) {
             return new Water();
-        } else if (randomTileF < 0.95f) {
+        } else if (randomTileF < 0.85f) {
             return new Spikes();
         } else {
             return new Stone();
@@ -61,24 +73,64 @@ public class LevelGeneration : MonoBehaviour
     }
 
     private void proceduralGenerationRules() {
-        for(int i = 0;i < rows; ++i) {
-            for(int c = 0; c < columns; c++) {
-                TileTypes tile = theGrid[i, c];
+        //TileTypes[,] tempGrid = new TileTypes[rows, columns];
+        //for (int i = 0;i < rows; ++i) {
+        //    for(int c = 0; c < columns; c++) {
+        //        //tempGrid[i, c] = theGrid[i, c];
+        //        //TileTypes tile = theGrid[i, c];
+        //        int grassNeighs = checkTypeNeighs(i, c, typeof(Grass));
+        //        int waterNeighs = checkTypeNeighs(i, c, typeof(Water));
+        //        int stoneNeighs = checkTypeNeighs(i, c, typeof(Stone));
+        //        if (grassNeighs >= 3) {
+        //            theGrid[i, c] = new Grass();
+        //        } else if (waterNeighs >= 2) {
+        //            theGrid[i, c] = new Water();
+        //        } else if (stoneNeighs >= 1) {
+        //            theGrid[i, c] = new Stone();
+        //        } 
+        //        //else if (tile is Grass && Random.value < 0.2f) {
+        //        //    theGrid[i, c] = new Spikes();
+        //        //}
+
+        //    }
+        //}
+        //theGrid = tempGrid;
+        ////updateVisualGrid(); 
+        //////////////////////////////////////////
+        /*TileTypes[,] tempGrid = new TileTypes[rows, columns];
+        for(int i = 0; i < rows; ++i) {
+            for(int c = 0; c < columns; ++c) {
                 int grassNeighs = checkTypeNeighs(i, c, typeof(Grass));
+                int mudNeighs = checkTypeNeighs(i, c, typeof(Mud));
                 int waterNeighs = checkTypeNeighs(i, c, typeof(Water));
                 int stoneNeighs = checkTypeNeighs(i, c, typeof(Stone));
+                int spikesNeighs = checkTypeNeighs(i, c, typeof(Spikes));
+
+                TileTypes newTile = theGrid[i, c].neighsTypeCount(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs);
+                //tempGrid[i, c] = newTile;
+                //Debug.Log($"Tile en posición ({i},{c}) cambia de tipo: {newTile.GetType().Name}");
+            }
+        }
+        theGrid = tempGrid;
+        updateVisualGrid();*/
+        ////////////////////////////////////
+        TileTypes[,] tempGrid = new TileTypes[rows, columns];
+        for (int i = 0; i < rows; ++i) {
+            for (int c = 0; c < columns; ++c) {
+                int grassNeighs = checkTypeNeighs(i, c, typeof(Grass));
+                int waterNeighs = checkTypeNeighs(i, c, typeof(Water));
+
                 if (grassNeighs >= 3) {
-                    theGrid[i, c] = new Grass();
+                    tempGrid[i, c] = new Grass();
                 } else if (waterNeighs >= 2) {
-                    theGrid[i, c] = new Water();
-                } else if (stoneNeighs >= 1) {
-                    theGrid[i, c] = new Stone();
-                } else if (tile is Grass && Random.value < 0.2f) {
-                    theGrid[i, c] = new Spikes();
+                    tempGrid[i, c] = new Water();
+                } else {
+                    tempGrid[i, c] = new Mud(); // Cambia al menos a Mud si no es Grass o Water
                 }
             }
         }
-        updateVisualGrid(); 
+        theGrid = tempGrid;
+        updateVisualGrid();
     }
 
     private int checkTypeNeighs(int x, int y, System.Type tileType) {
@@ -92,7 +144,7 @@ public class LevelGeneration : MonoBehaviour
                 int checkX = x + i;
                 int checkY = y + j;
                 if (checkX >= 0 && checkX < rows && checkY >= 0 && checkY < columns) {
-                    if (theGrid[checkX, checkY].GetType() == tileType) {
+                    if (theGrid[checkX, checkY] != null && theGrid[checkX,checkY].GetType() == tileType) {
                         typeCount++;
                     }
                 }
@@ -103,13 +155,13 @@ public class LevelGeneration : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetMouseButtonDown(0)) {
-            Vector3 coursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int tilePos = userTilemap.WorldToCell(coursorPos);
-            if (tilePos.x >= 0 && tilePos.x < rows && tilePos.y >= 0 && tilePos.y < columns) {
-                updateGrid(tilePos);
-            }
-        }
+        //if(Input.GetMouseButtonDown(0)) {
+        //    Vector3 coursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    Vector3Int tilePos = userTilemap.WorldToCell(coursorPos);
+        //    if (tilePos.x >= 0 && tilePos.x < rows && tilePos.y >= 0 && tilePos.y < columns) {
+        //        updateGrid(tilePos);
+        //    }
+        //}
         if (simulationIsRunning) {
             StartCoroutine(generationsInterval());
         }
@@ -119,16 +171,18 @@ public class LevelGeneration : MonoBehaviour
         TileTypes[,] tempGrid = new TileTypes[rows, columns];
         for(int i = 0; i < rows; i++) {
             for(int c = 0; c < columns; c++) {
-                tempGrid[i, c] = new TileTypes();
+                tempGrid[i, c] = new Grass();
             }
         }
         for(int i = 0; i < rows; i++) {
             for(int c = 0; c < columns; c++) {
-                int currentNeighs = checkNeighCells(i, c);
-                if(theGrid[i, c].bIsAlive) {
-                    tempGrid[i, c].bIsAlive = currentNeighs >= 2 && currentNeighs <= 3;
-                } else {
-                    tempGrid[i, c].bIsAlive = currentNeighs == 3;
+                if (theGrid[i, c] != null) {
+                    int currentNeighs = checkNeighCells(i, c);
+                    if(theGrid[i, c].bIsAlive) {
+                        tempGrid[i, c].bIsAlive = currentNeighs >= 2 && currentNeighs <= 3;
+                    } else {
+                        tempGrid[i, c].bIsAlive = currentNeighs == 3;
+                    }
                 }
             }
         }
@@ -155,6 +209,7 @@ public class LevelGeneration : MonoBehaviour
             for (int c = 0; c < columns; c++) {
                 Vector3Int currentGridPos = new Vector3Int(i, c, 0);
                 TileTypes tile = theGrid[i, c];
+                //Debug.Log($"actualizando en visual el tile en pos ({i},{c}): {tile.GetType().Name}");
                 if (tile is Grass) {
                     tilemap.SetTile(currentGridPos, grassTile);
                 } else if (tile is Mud) {
@@ -165,6 +220,8 @@ public class LevelGeneration : MonoBehaviour
                     tilemap.SetTile(currentGridPos, spikesTile);
                 } else if (tile is Stone) {
                     tilemap.SetTile(currentGridPos, stoneTile);
+                } else {
+                    tilemap.SetTile(currentGridPos, deadTile);
                 }
             }
         }
@@ -189,7 +246,9 @@ public class LevelGeneration : MonoBehaviour
                 int checkX = x + i;
                 int checkY = y + j;
                 if (checkX >= 0 && checkX < rows && checkY >= 0 && checkY < columns) {
-                    if (theGrid[checkX, checkY].bIsAlive) aliveNeighs++;
+                    if (theGrid[checkX, checkY] != null && theGrid[checkX, checkY].bIsAlive) { 
+                        aliveNeighs++;
+                    }
                 }
             }
         }
@@ -198,15 +257,16 @@ public class LevelGeneration : MonoBehaviour
 
     IEnumerator generationsInterval() {
         while (simulationIsRunning) {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.9f);
             runGameOfLife();
         }
     }
 
     public void startGameOfLife() {
         initializeLevelGeneration();
-        simulationIsRunning = true;
-        StartCoroutine(generationsInterval());
+        simulationIsRunning = false;
+        updateVisualGrid();
+        //StartCoroutine(generationsInterval());
     }
 
     public void stopGameOfLife() {

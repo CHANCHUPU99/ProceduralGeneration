@@ -271,7 +271,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -296,7 +296,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 74
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -321,7 +321,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 131.37, y: 74, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -835,6 +835,8 @@ MonoBehaviour:
   waterTile: {fileID: 11400000, guid: 9d0ce6b953147344f90485387606241e, type: 2}
   rows: 145
   columns: 145
+  initialRowPos: 0
+  initialColumnPos: 0
   deadTile: {fileID: 11400000, guid: d5915b66cb2badc4e94480d62aed2255, type: 2}
 --- !u!4 &1423997788
 Transform:
@@ -845,7 +847,7 @@ Transform:
   m_GameObject: {fileID: 1423997786}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4341064, y: -0.28672066, z: 0.027918149}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1101,7 +1103,7 @@ Grid:
   m_CellSize: {x: 1, y: 1, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
-  m_CellSwizzle: 0
+  m_CellSwizzle: 2
 --- !u!4 &2145004881
 Transform:
   m_ObjectHideFlags: 0
