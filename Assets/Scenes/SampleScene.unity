@@ -828,13 +828,13 @@ MonoBehaviour:
   tilemap: {fileID: 556599806}
   userTilemap: {fileID: 1835833246}
   drawedTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
-  grassTile: {fileID: 11400000, guid: b0e22b962e94f3f4b97333bc5f486a1b, type: 2}
+  grassTile: {fileID: 11400000, guid: f3ff4073616e0854e97ecc2ef9f6d42e, type: 2}
   mudTile: {fileID: 11400000, guid: 79c985dc3d7fcaf449f3c05e1a6c86a6, type: 2}
-  spikesTile: {fileID: 11400000, guid: 37a30764d37c8a94c86af54635ae77a8, type: 2}
-  stoneTile: {fileID: 11400000, guid: 102100946f40da145a7c04d22725325a, type: 2}
-  waterTile: {fileID: 11400000, guid: 9d0ce6b953147344f90485387606241e, type: 2}
-  rows: 145
-  columns: 145
+  spikesTile: {fileID: 11400000, guid: 8f5050b2f5ad40d499d4257db845f344, type: 2}
+  stoneTile: {fileID: 11400000, guid: 4e7cd5d337279ad4c8441988136f826f, type: 2}
+  waterTile: {fileID: 11400000, guid: d0a288e5b57df69428ef0f371a8e6b7a, type: 2}
+  rows: 148
+  columns: 200
   initialRowPos: 0
   initialColumnPos: 0
   deadTile: {fileID: 11400000, guid: d5915b66cb2badc4e94480d62aed2255, type: 2}

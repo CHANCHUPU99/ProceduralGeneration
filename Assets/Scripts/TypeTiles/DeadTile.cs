@@ -10,10 +10,19 @@ public class DeadTile : TileTypes
         walkSpeed = 0.8f;
     }
 
-    public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs) {
-        if (mudNeighs >= 2) return new Mud();
-        else if (grassNeighs >= 3) return new Grass();
-        else if (spikesNeighs >= 1) return new Spikes();
-        return this;
+    public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
+        if (grassNeighs > 0) {
+            return new Grass();
+        } else if (mudNeighs > 0) {
+            return new Mud();
+        } else if (waterNeighs > 0) {
+            return new Water();
+        } else if (stoneNeighs > 0) {
+            return new Stone();
+        } else if (spikesNeighs > 0) {
+            return new Spikes();
+        } else {
+            return this;
+        }
     }
 }

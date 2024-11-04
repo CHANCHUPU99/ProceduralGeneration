@@ -10,7 +10,7 @@ public class Spikes : TileTypes
         walkSpeed = 0.5f;
     }
 
-    public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs) {
+    public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
         if (grassNeighs >= 3) {
             return new Grass();
         } else if (stoneNeighs >= 2) {

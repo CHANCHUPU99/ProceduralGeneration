@@ -42,9 +42,11 @@ public class LevelGeneration : MonoBehaviour
         theGrid = new TileTypes[rows, columns];
         for (int i = 0; i < rows; i++) {
             for (int c = 0; c < columns; c++) {
-                theGrid[i, c] = randomTile();
+                theGrid[i, c] = new DeadTile();
             }
         }
+        theGrid[Random.Range(0, rows), Random.Range(0, columns)] = randomTile();
+        theGrid[Random.Range(0, rows ), Random.Range(0, columns)] = randomTile();
         //updateVisualGrid();
         //theGrid[initialRowPos, initialColumnPos] = randomTile();
         //if (Random.value > 0.5) {
@@ -118,15 +120,21 @@ public class LevelGeneration : MonoBehaviour
         for (int i = 0; i < rows; ++i) {
             for (int c = 0; c < columns; ++c) {
                 int grassNeighs = checkTypeNeighs(i, c, typeof(Grass));
+                int mudNeighs = checkTypeNeighs(i, c, typeof(Mud));
                 int waterNeighs = checkTypeNeighs(i, c, typeof(Water));
-
-                if (grassNeighs >= 3) {
-                    tempGrid[i, c] = new Grass();
-                } else if (waterNeighs >= 2) {
-                    tempGrid[i, c] = new Water();
-                } else {
-                    tempGrid[i, c] = new Mud(); // Cambia al menos a Mud si no es Grass o Water
-                }
+                int stoneNeighs = checkTypeNeighs(i, c, typeof(Stone));
+                int spikesNeighs = checkTypeNeighs(i, c, typeof(Spikes));
+                int deadNeighs = checkTypeNeighs(i, c, typeof(DeadTile));
+                tempGrid[i, c] = theGrid[i, c].neighsTypeCount(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
+                //TileTypes newTile = theGrid[i, c].neighsTypeCount(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs,deadNeighs);
+                //tempGrid[i, c] = newTile;
+                //if (grassNeighs >= 3) {
+                //    tempGrid[i, c] = new Grass();
+                //} else if (waterNeighs >= 2) {
+                //    tempGrid[i, c] = new Water();
+                //} else {
+                //    tempGrid[i, c] = new Mud(); 
+                //}
             }
         }
         theGrid = tempGrid;
@@ -135,7 +143,6 @@ public class LevelGeneration : MonoBehaviour
 
     private int checkTypeNeighs(int x, int y, System.Type tileType) {
         int typeCount = 0;
-
         for(int i = -1;i <= 1; i++) {
             for(int j = -1; j <= 1; j++) {
                 if (i == 0 && j == 0) {
@@ -258,15 +265,15 @@ public class LevelGeneration : MonoBehaviour
     IEnumerator generationsInterval() {
         while (simulationIsRunning) {
             yield return new WaitForSeconds(0.9f);
-            runGameOfLife();
+            proceduralGenerationRules();
         }
     }
 
     public void startGameOfLife() {
         initializeLevelGeneration();
-        simulationIsRunning = false;
-        updateVisualGrid();
-        //StartCoroutine(generationsInterval());
+        simulationIsRunning = true;
+        //updateVisualGrid();
+        StartCoroutine(generationsInterval());
     }
 
     public void stopGameOfLife() {

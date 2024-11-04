@@ -21,7 +21,7 @@ public class TileTypes
 
     }
 
-    public virtual TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs) {
+    public virtual TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs,int deadNeighs) {
         return null;
     }
     public void setIsSafeToWalk(bool _isSafeToWalk) {

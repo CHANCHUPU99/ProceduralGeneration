@@ -11,13 +11,15 @@ public class Water : TileTypes
         walkSpeed = 0.0f;
     }
 
-    public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs) {
-        if(grassNeighs >= 3) {
+    public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
+        if(deadNeighs > 0) {
+            return new Water();
+        } else if(grassNeighs >= 3) {
             return new Grass();
-        } else if(stoneNeighs >= 2) {
+        } else if (stoneNeighs >= 2) {
             return new Stone();
         } else {
-            return this; 
+            return this;
         }
     }
 }
