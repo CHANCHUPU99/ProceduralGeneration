@@ -32,6 +32,10 @@ public class LevelGeneration : MonoBehaviour
     public GameObject deadObj;
     public GameObject Playeeeeer;
     
+
+    private void soloesparaquenoserompagit() {
+        Debug.Log("hola");
+    }
     private void initializeLevelGeneration() {
         //theGrid = new TileTypes[rows, columns];
         //initialRowPos = rows / 2;
