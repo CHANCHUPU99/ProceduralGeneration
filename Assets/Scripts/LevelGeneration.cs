@@ -24,6 +24,13 @@ public class LevelGeneration : MonoBehaviour
     private bool simulationIsRunning;
     public Tile deadTile;
 
+    public GameObject grassObj;
+    public GameObject spikesObj;
+    public GameObject stoneObj;
+    public GameObject waterObj;
+    public GameObject mudObj;
+    public GameObject deadObj;
+    public GameObject Playeeeeer;
     
     private void initializeLevelGeneration() {
         //theGrid = new TileTypes[rows, columns];
@@ -43,6 +50,7 @@ public class LevelGeneration : MonoBehaviour
         for (int i = 0; i < rows; i++) {
             for (int c = 0; c < columns; c++) {
                 theGrid[i, c] = new DeadTile();
+                //assignGameObjToTile(theGrid[i, c], i,c);
             }
         }
         theGrid[Random.Range(0, rows), Random.Range(0, columns)] = randomTile();
@@ -142,8 +150,10 @@ public class LevelGeneration : MonoBehaviour
         if(theGridIsFull) {
             simulationIsRunning = false;
             Debug.LogWarning("se llenooooooooo");
+            //Instantiate(Playeeeeer);
         }
     }
+
 
     private int checkTypeNeighs(int x, int y, System.Type tileType) {
         int typeCount = 0;
@@ -221,7 +231,6 @@ public class LevelGeneration : MonoBehaviour
             for (int c = 0; c < columns; c++) {
                 Vector3Int currentGridPos = new Vector3Int(i, c, 0);
                 TileTypes tile = theGrid[i, c];
-                //Debug.Log($"actualizando en visual el tile en pos ({i},{c}): {tile.GetType().Name}");
                 if (tile is Grass) {
                     tilemap.SetTile(currentGridPos, grassTile);
                 } else if (tile is Mud) {
@@ -235,6 +244,8 @@ public class LevelGeneration : MonoBehaviour
                 } else {
                     tilemap.SetTile(currentGridPos, deadTile);
                 }
+                //TileTypes tileToAssign = theGrid[i, c];
+                //assignGameObjToTile(tileToAssign, i,c);
             }
         }
     }
@@ -314,6 +325,29 @@ public class LevelGeneration : MonoBehaviour
     //        randomCol = Random.Range(0, columns);
     //        TileTypes.tileTypes randomTileType = tileTypeeeessss[Random.Range(0,tileTypeeeessss.Length)];
     //        theGrid[randomRow, randomCol] = newRandomTile;
+    //    }
+    //}
+    
+    //void assignGameObjToTile(TileTypes tileType, int x, int y) {
+    //    GameObject objToTile = null;
+    //    if(tileType is Grass) {
+    //        objToTile = grassObj;
+    //    } else if(tileType is Mud) {
+    //        objToTile = mudObj;
+    //    } else if (tileType is Water) {
+    //        objToTile = waterObj;
+    //    }else if (tileType is Stone) {
+    //        objToTile = stoneObj;
+    //    }else if(tileType is Spikes) {
+    //        objToTile = spikesObj;
+    //    }else {
+    //        objToTile = deadObj;
+    //    }
+
+    //    if(objToTile != null) {
+    //        Vector3Int pos = new Vector3Int(x, y, 0);
+    //        GameObject tileObj = Instantiate(objToTile, tilemap.CellToWorld(pos) +new Vector3(0.5f,0.5f,0), Quaternion.identity);
+    //        tileObj.transform.SetParent(tilemap.transform);
     //    }
     //}
 }
