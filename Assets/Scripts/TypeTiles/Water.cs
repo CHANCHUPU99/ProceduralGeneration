@@ -14,12 +14,22 @@ public class Water : TileTypes
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
         if(deadNeighs > 0) {
             return new Water();
-        } else if(grassNeighs >= 3) {
-            return new Grass();
-        } else if (stoneNeighs >= 2) {
-            return new Stone();
+        } else if (waterNeighs >= 2) {
+            return new Mud();
+        } else if (grassNeighs >= 1) {
+            return new Spikes();
+        } else if (stoneNeighs >= 1) {
+            return new Mud();
         } else {
-            return this;
+            return new Grass(); 
         }
     }
+
+    /// <summary>
+    /// si mas de cero muertos genera water
+    /// si tiene dos o mas de water genera mud
+    /// si tiene uno o mas de grass genera spikes
+    /// si tiene uno o mas de stone genera mud
+    /// si no se cumple ninguna genera grass
+    /// </summary>
 }

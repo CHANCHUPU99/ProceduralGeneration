@@ -10,7 +10,7 @@ public class LevelGeneration : MonoBehaviour
     public Tilemap tilemap;
     public Tilemap userTilemap;
     public Tile drawedTile;
-
+    public bool theGridIsFull = true;
     public Tile grassTile;
     public Tile mudTile;
     public Tile spikesTile;
@@ -24,7 +24,7 @@ public class LevelGeneration : MonoBehaviour
     private bool simulationIsRunning;
     public Tile deadTile;
 
-    //para que inicie con el boton
+    
     private void initializeLevelGeneration() {
         //theGrid = new TileTypes[rows, columns];
         //initialRowPos = rows / 2;
@@ -47,6 +47,8 @@ public class LevelGeneration : MonoBehaviour
         }
         theGrid[Random.Range(0, rows), Random.Range(0, columns)] = randomTile();
         theGrid[Random.Range(0, rows ), Random.Range(0, columns)] = randomTile();
+        proceduralGenerationRules();
+        updateVisualGrid();
         //updateVisualGrid();
         //theGrid[initialRowPos, initialColumnPos] = randomTile();
         //if (Random.value > 0.5) {
@@ -54,18 +56,16 @@ public class LevelGeneration : MonoBehaviour
         //} else {
         //    theGrid[initialRowPos,initialColumnPos] = new Water();
         //}
-        proceduralGenerationRules();
-        updateVisualGrid();
     }
 
 
     private TileTypes randomTile() {
         float randomTileF = Random.value;
-        if (randomTileF < 0.3f) {
+        if (randomTileF < 0.25f) {
             return new Grass();
-        } else if (randomTileF < 0.5f) {
+        } else if (randomTileF < 0.50f) {
             return new Mud();
-        } else if (randomTileF < 0.7f) {
+        } else if (randomTileF < 0.75f) {
             return new Water();
         } else if (randomTileF < 0.85f) {
             return new Spikes();
@@ -110,7 +110,6 @@ public class LevelGeneration : MonoBehaviour
 
                 TileTypes newTile = theGrid[i, c].neighsTypeCount(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs);
                 //tempGrid[i, c] = newTile;
-                //Debug.Log($"Tile en posición ({i},{c}) cambia de tipo: {newTile.GetType().Name}");
             }
         }
         theGrid = tempGrid;
@@ -135,10 +134,15 @@ public class LevelGeneration : MonoBehaviour
                 //} else {
                 //    tempGrid[i, c] = new Mud(); 
                 //}
+                
             }
         }
         theGrid = tempGrid;
         updateVisualGrid();
+        if(theGridIsFull) {
+            simulationIsRunning = false;
+            Debug.LogWarning("se llenooooooooo");
+        }
     }
 
     private int checkTypeNeighs(int x, int y, System.Type tileType) {
@@ -151,6 +155,7 @@ public class LevelGeneration : MonoBehaviour
                 int checkX = x + i;
                 int checkY = y + j;
                 if (checkX >= 0 && checkX < rows && checkY >= 0 && checkY < columns) {
+                    //aca nada mas se lo paso a cada una de mis variabels locales ,osea el tipo 
                     if (theGrid[checkX, checkY] != null && theGrid[checkX,checkY].GetType() == tileType) {
                         typeCount++;
                     }
@@ -264,7 +269,7 @@ public class LevelGeneration : MonoBehaviour
 
     IEnumerator generationsInterval() {
         while (simulationIsRunning) {
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(1.5f);
             proceduralGenerationRules();
         }
     }

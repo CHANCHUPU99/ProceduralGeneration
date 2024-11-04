@@ -11,12 +11,24 @@ public class Spikes : TileTypes
     }
 
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        if (grassNeighs >= 3) {
+        if(deadNeighs > 0) {
+            return new Spikes();
+        } else if (spikesNeighs >= 2) {
+            return new Mud();
+        } else if (grassNeighs >= 1) {
+            return new Water();
+        } else if (stoneNeighs >= 1) {
             return new Grass();
-        } else if (stoneNeighs >= 2) {
-            return new Stone();
         } else {
-            return this; 
+            return new Stone();
+
         }
     }
+        /// <summary>
+        /// si tiene mas de un tile muerto saca un spike
+        /// si tiene mas dos o mas de spikes genera mud
+        /// si tiene uno o mas de grass genera water
+        /// si tiene uno o mas de stone grass
+        /// si no se cumple ninguna genera Stone
+        /// </summary>
 }

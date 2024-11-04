@@ -11,19 +11,25 @@ public class Grass : TileTypes {
     }
 
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        if(deadNeighs > 0) {
+        if (deadNeighs > 0) {
             return new Grass();
-        } else if (waterNeighs >= 2) {
-            return new Water();
-        } else if (stoneNeighs >= 1) {
+        } else if (grassNeighs >= 2) {
             return new Stone();
+        } else if (mudNeighs >= 1) {
+            return new Water();
+        } else if (spikesNeighs >= 1) {
+            return new Mud();
         } else {
-            return this;
+            return new Spikes();
         }
     }
 
-     /// <summary>
-    /// si tiene mas de un tile muerto saca el random y decide aleatoriamente un nuevo tile
+    /// <summary>
+    /// si tiene mas de un tile muerto saca un grass
+    /// si tiene mas dos o mas de grass genera stone
+    /// si tiene uno o mas de mud genera water
+    /// si tiene uno o mas de spikes genera mud
+    /// si no se cumple ninguna genera spike
     /// </summary>
 }
 
