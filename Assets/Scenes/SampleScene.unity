@@ -1232,6 +1232,7 @@ MonoBehaviour:
   spikesTile: {fileID: 11400000, guid: 8f5050b2f5ad40d499d4257db845f344, type: 2}
   stoneTile: {fileID: 11400000, guid: 4e7cd5d337279ad4c8441988136f826f, type: 2}
   waterTile: {fileID: 11400000, guid: d0a288e5b57df69428ef0f371a8e6b7a, type: 2}
+  finishTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
   rows: 148
   columns: 200
   initialRowPos: 0
