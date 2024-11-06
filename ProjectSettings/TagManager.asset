@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grass
+  - Mud
+  - Spikes
+  - Stone
+  - Water
+  - DeadTile
+  - FinishTile
   layers:
   - Default
   - TransparentFX

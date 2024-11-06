@@ -7,14 +7,20 @@ public class TileTypes
     public bool bIsAlive;
     public bool bIsSafeToWalk;
     public float walkSpeed;
+    public bool isEditable = true;
+    public bool isChanging;
     //public tileTypes tileTypesEnum;
     public TileTypes() {
         bIsAlive = false;
+        isEditable = true;
+        isChanging = true;
     }
     public TileTypes(bool _isAlive, bool _isSafeToWalk, float _walkSpeed) {
         bIsAlive = _isAlive;
         bIsSafeToWalk = _isSafeToWalk;
         walkSpeed = _walkSpeed;
+        isEditable = true; 
+        isChanging = true;
     }
 
     public virtual void tileValues() {

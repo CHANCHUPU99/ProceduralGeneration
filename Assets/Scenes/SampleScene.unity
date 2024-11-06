@@ -677,11 +677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.4
+      value: 38.49
       objectReference: {fileID: 0}
     - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16.7
+      value: 3.42
       objectReference: {fileID: 0}
     - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
       propertyPath: m_LocalPosition.z
@@ -853,6 +853,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997804722}
   m_CullTransparentMesh: 1
+--- !u!1 &1231325528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231325530}
+  - component: {fileID: 1231325529}
+  m_Layer: 0
+  m_Name: NewGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1231325529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231325528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2978de3c19729234496f230273a5d747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 10
+  height: 10
+  cellSize: 1
+  grassPrefab: {fileID: 2422061526792145578, guid: d8b3f6a356145b54e9b1d10fc076226f, type: 3}
+  mudPrefab: {fileID: 6659423774271281814, guid: 2472aac6e859f7a46840fd316193c35c, type: 3}
+  waterPrefab: {fileID: 9163409241325612245, guid: 59ace9015f32ca247a8c816281d91051, type: 3}
+  spikesPrefab: {fileID: 3780725320240718357, guid: 4103be0c00dd2f941b489691ebd96db0, type: 3}
+  stonePrefab: {fileID: 4285802192028993843, guid: d2f1ec659da36e34791a0542d6723058, type: 3}
+  finishPrefab: {fileID: 4984761793003351435, guid: 22725d199f44d0d4da452e2452638258, type: 3}
+--- !u!4 &1231325530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231325528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.121447, y: 6.446371, z: -0.075441375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1235228881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4979f4d6ed86d8043bcf294920d82360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridStateDebug: []
   tilemap: {fileID: 556599806}
   userTilemap: {fileID: 1835833246}
   drawedTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
@@ -1233,18 +1287,19 @@ MonoBehaviour:
   stoneTile: {fileID: 11400000, guid: 4e7cd5d337279ad4c8441988136f826f, type: 2}
   waterTile: {fileID: 11400000, guid: d0a288e5b57df69428ef0f371a8e6b7a, type: 2}
   finishTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
-  rows: 148
-  columns: 200
+  rows: 15
+  columns: 15
   initialRowPos: 0
   initialColumnPos: 0
   deadTile: {fileID: 11400000, guid: d5915b66cb2badc4e94480d62aed2255, type: 2}
-  grassObj: {fileID: 0}
-  spikesObj: {fileID: 0}
-  stoneObj: {fileID: 0}
-  waterObj: {fileID: 0}
-  mudObj: {fileID: 0}
-  deadObj: {fileID: 0}
+  grassObj: {fileID: 4261533422398037188, guid: 886e33c1583d4cb4ba8f5ca2a826b7d5, type: 3}
+  spikesObj: {fileID: 1429893348086665872, guid: 5e643aa8c21984144add76ebe6dc3aae, type: 3}
+  stoneObj: {fileID: 7349063302151829941, guid: 90e8435a04be9d04f89dc8299485c0b0, type: 3}
+  waterObj: {fileID: 1884879559900986471, guid: 7b0107cc528513e47881007546e9aeab, type: 3}
+  mudObj: {fileID: 6780160988315724300, guid: bb144aa918ed1334c8cfeb4318c5d27d, type: 3}
+  deadObj: {fileID: 995259148745133330, guid: 49a0e3e4abbbf784cb30067360ffc6ad, type: 3}
   Playeeeeer: {fileID: 5400267372998027272, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
+  finishTileObj: {fileID: 8805122379561259186, guid: 422bbf5d2565eb646abfb58031e4f517, type: 3}
 --- !u!4 &1423997788
 Transform:
   m_ObjectHideFlags: 0
@@ -2044,3 +2099,4 @@ SceneRoots:
   - {fileID: 1419025800}
   - {fileID: 1265528648}
   - {fileID: 782201590}
+  - {fileID: 1231325530}
