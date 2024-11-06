@@ -16,13 +16,11 @@ public class PlayerController : MonoBehaviour
 
     void Update() {
         if (!isMoving) {
-            handleInput();
+            input();
         }
-
-        moveToTarget();
     }
 
-    private void handleInput() {
+    private void input() {
         Vector3 moveDirection = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.W)) {
             moveDirection = Vector3.up;
@@ -38,9 +36,9 @@ public class PlayerController : MonoBehaviour
             //Collider2D tileCollider = Physics2D.OverlapPoint(newPosition);
             Vector3Int pos = tilemap.WorldToCell(newPosition);
             LevelGeneration levelGeneration = FindObjectOfType<LevelGeneration>();
-            if (pos.x >= 0 && pos.y >= 0 && pos.x < levelGeneration.theGrid.GetLength(0) && pos.y < levelGeneration.theGrid.GetLength(1)) {
+            if(pos.x >= 0 && pos.y >= 0 && pos.x < levelGeneration.theGrid.GetLength(0) && pos.y < levelGeneration.theGrid.GetLength(1)) {
                 TileTypes tile = levelGeneration.theGrid[pos.x, pos.y];
-                if (tile != null && tile.bIsSafeToWalk) {
+                if(tile != null && tile.bIsSafeToWalk) {
                     targetPosition = tilemap.CellToWorld(pos) + new Vector3(0.5f, 0.5f, 0);
                     isMoving = true;
                 } else {
@@ -54,14 +52,4 @@ public class PlayerController : MonoBehaviour
             //isMoving = true;
     }
  
-
-    private void moveToTarget() {
-        if(isMoving) {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            if(Vector3.Distance(transform.position, targetPosition) < 0.01f) {
-                transform.position = targetPosition;
-                isMoving = false;
-            }
-        }
-    }
 }
