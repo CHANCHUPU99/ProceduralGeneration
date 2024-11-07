@@ -40,19 +40,24 @@ public class LevelGeneration : MonoBehaviour
     public GameObject Playeeeeer;
     public GameObject finishTileObj;
     
+
+    //ya que tengo mi thegrid generado aleatoriamente, copio ese grid aleatorio a uno temp y que ahi haga los cambios de logica 
+    //y despues ese thegrid de logica o temp lo paso a mi funcion de update visual 
     private void initializeLevelGeneration() {
         theGrid = new TileTypes[rows, columns];
         debugGridState = new TileTypes[rows, columns];
         gridStateDebug = new string[rows];
         for (int i = 0; i < rows; i++) {
             for (int c = 0; c < columns; c++) {
-                theGrid[i, c] = new DeadTile();
-                debugGridState[i, c] = new DeadTile();
+                //theGrid[i, c] = new DeadTile();
+                //debugGridState[i, c] = new DeadTile();
+                theGrid[i, c] = randomTile();
+                //llamar a mi funcion para copiar mi thegrid temp 
                 //assignGameObjToTile(theGrid[i, c], i,c);
             }
         }
         theGrid[Random.Range(0, rows), Random.Range(0, columns)] = randomTile();
-        theGrid[Random.Range(0, rows ), Random.Range(0, columns)] = randomTile();
+        //theGrid[Random.Range(0, rows ), Random.Range(0, columns)] = randomTile();
         //proceduralGenerationRules();
         //updateVisualGrid();
         //Vector2Int finishTilePos = createFinishTile(); 
@@ -170,7 +175,6 @@ public class LevelGeneration : MonoBehaviour
             Debug.LogWarning("Grid completo con el FinishTile colocado.");
             Debug.Log(PrintGridState());
         }
-        
     }
 
     private void placeFinishTile() {
@@ -186,7 +190,6 @@ public class LevelGeneration : MonoBehaviour
             }
         }
         updateVisualGrid();
-
         //////////////////////
         //con esto funciona lo de finifhTile
         //bool placed = false;
