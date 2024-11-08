@@ -11,6 +11,7 @@ public class Grass : TileTypes {
     }
 
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
+        Debug.Log($"Grass: deadNeighs={deadNeighs}, grassNeighs={grassNeighs}, mudNeighs={mudNeighs}, waterNeighs={waterNeighs}, stoneNeighs={stoneNeighs}, spikesNeighs={spikesNeighs}");
         if (deadNeighs > 0) {
             return new Grass();
         } else if (grassNeighs >= 2) {

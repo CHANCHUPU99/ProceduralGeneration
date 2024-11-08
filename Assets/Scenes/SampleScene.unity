@@ -803,9 +803,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1423997787}
-        m_TargetAssemblyTypeName: LevelGeneration, Assembly-CSharp
-        m_MethodName: startGameOfLife
+      - m_Target: {fileID: 1231325531}
+        m_TargetAssemblyTypeName: NewLevelGeneration, Assembly-CSharp
+        m_MethodName: ToggleSimulation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -862,26 +862,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1231325530}
-  - component: {fileID: 1231325529}
+  - component: {fileID: 1231325531}
   m_Layer: 0
   m_Name: NewGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1231325529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231325528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2978de3c19729234496f230273a5d747, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_IsActive: 1
 --- !u!4 &1231325530
 Transform:
   m_ObjectHideFlags: 0
@@ -897,6 +885,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1231325531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231325528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ae63bdabe569d42926edd0e90fbb85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridStateDebug: []
+  tilemap: {fileID: 556599806}
+  userTilemap: {fileID: 1835833246}
+  drawedTile: {fileID: 11400000, guid: b0e22b962e94f3f4b97333bc5f486a1b, type: 2}
+  theGridIsFull: 1
+  grassTile: {fileID: 11400000, guid: f3ff4073616e0854e97ecc2ef9f6d42e, type: 2}
+  mudTile: {fileID: 11400000, guid: 79c985dc3d7fcaf449f3c05e1a6c86a6, type: 2}
+  spikesTile: {fileID: 11400000, guid: 8f5050b2f5ad40d499d4257db845f344, type: 2}
+  stoneTile: {fileID: 11400000, guid: 4e7cd5d337279ad4c8441988136f826f, type: 2}
+  waterTile: {fileID: 11400000, guid: d0a288e5b57df69428ef0f371a8e6b7a, type: 2}
+  finishTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
+  rows: 10
+  columns: 10
+  initialRowPos: 0
+  initialColumnPos: 0
+  deadTile: {fileID: 11400000, guid: d5915b66cb2badc4e94480d62aed2255, type: 2}
+  grassObj: {fileID: 4261533422398037188, guid: 886e33c1583d4cb4ba8f5ca2a826b7d5, type: 3}
+  spikesObj: {fileID: 1429893348086665872, guid: 5e643aa8c21984144add76ebe6dc3aae, type: 3}
+  stoneObj: {fileID: 7349063302151829941, guid: 90e8435a04be9d04f89dc8299485c0b0, type: 3}
+  waterObj: {fileID: 1884879559900986471, guid: 7b0107cc528513e47881007546e9aeab, type: 3}
+  mudObj: {fileID: 6780160988315724300, guid: bb144aa918ed1334c8cfeb4318c5d27d, type: 3}
+  deadObj: {fileID: 995259148745133330, guid: 49a0e3e4abbbf784cb30067360ffc6ad, type: 3}
+  Playeeeeer: {fileID: 5400267372998027272, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
+  finishTileObj: {fileID: 8805122379561259186, guid: 422bbf5d2565eb646abfb58031e4f517, type: 3}
 --- !u!1 &1235228881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,7 +1278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1423997787
 MonoBehaviour:
   m_ObjectHideFlags: 0

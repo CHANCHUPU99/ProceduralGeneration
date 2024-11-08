@@ -11,7 +11,9 @@ public class Mud : TileTypes
     }
 
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        if(deadNeighs > 0) {
+        Debug.Log($"Mud: deadNeighs={deadNeighs}, grassNeighs={grassNeighs}, mudNeighs={mudNeighs}, waterNeighs={waterNeighs}, stoneNeighs={stoneNeighs}, spikesNeighs={spikesNeighs}");
+
+        if (deadNeighs > 0) {
             return new Water();
         } else if (mudNeighs >= 2) {
             return new Spikes();
@@ -22,8 +24,9 @@ public class Mud : TileTypes
         } else {
             return new Water(); 
         }
-}
+    }
 
+}
         /// <summary>
         /// si tiene mas de cero muertos genera water
         /// si tiene dos o mas de mud genera spikes
@@ -31,4 +34,3 @@ public class Mud : TileTypes
         /// si tiene mas o unoi de stone genera grass
         /// si no se cumple ninguna genera water
         /// </summary>
-    }
