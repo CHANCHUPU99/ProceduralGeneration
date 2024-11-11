@@ -39,6 +39,7 @@ public class NewLevelGeneration : MonoBehaviour {
     public GameObject finishTileObj;
     public TileTypes[,] logicGrid;
     bool isGridUpdated;
+    public TileBase finalTile;
 
     public void initializeGrid() {
         initializeLevelGeneration();
@@ -49,10 +50,6 @@ public class NewLevelGeneration : MonoBehaviour {
         proceduralGenerationRules();
         applyLogicToVisualGrid();
         Debug.Log("Reglas aplicadas y grid visual actualizado");
-    }
-
-    private void Update() {
-        
     }
 
     private void initializeLevelGeneration() {
@@ -245,10 +242,27 @@ public class NewLevelGeneration : MonoBehaviour {
 
     public void toggleSimulation() {
         simulationIsRunning = !simulationIsRunning;
-        if (simulationIsRunning) {
+        if(simulationIsRunning) {
             Debug.Log("Simulación iniciada");
         } else {
             Debug.Log("Simulación detenida");
         }
+    }
+    public void PlaceFinalTileAndSetPlayerStart() {
+        Vector2Int finalTilePos = GetRandomSafePosition();
+        Vector2Int playerStartPos = GetRandomSafePosition();
+        theGrid[finalTilePos.x, finalTilePos.y] = new FinishTile();
+        Vector3Int tilemapPosition = new Vector3Int(finalTilePos.x, finalTilePos.y, 0);
+        Tilemap tilemap = FindObjectOfType<Tilemap>();
+        tilemap.SetTile(tilemapPosition, finalTile);
+        GameObject player = Instantiate(Playeeeeer);
+        player.transform.position = tilemap.CellToWorld(new Vector3Int(playerStartPos.x, playerStartPos.y, 0)) + new Vector3(0.5f, 0.5f, 0);
+    }
+    private Vector2Int GetRandomSafePosition() {
+        Vector2Int randomPos;
+        do {
+            randomPos = new Vector2Int(Random.Range(0, theGrid.GetLength(0)), Random.Range(0, theGrid.GetLength(1)));
+        } while (theGrid[randomPos.x, randomPos.y] is Spikes || theGrid[randomPos.x, randomPos.y] is Stone);
+        return randomPos;
     }
 }

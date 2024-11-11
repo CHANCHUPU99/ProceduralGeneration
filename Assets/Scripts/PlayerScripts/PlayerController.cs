@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     private bool isMoving;
     private Vector3 targetPosition;
-    public Tilemap tilemap;
+    public Tilemap tilemap; 
+    private LevelGeneration levelGeneration;
     void Start() {
+        levelGeneration = FindObjectOfType<LevelGeneration>();
         targetPosition = transform.position;
     }
 
@@ -44,7 +46,9 @@ public class PlayerController : MonoBehaviour
                     isMoving = true;
                 } else if (tile != null && tile is Spikes) {
                     Debug.Log("detecto spikeeee");
-                    
+
+                } else if (tile is FinishTile) {
+                    Debug.Log("Jugador ha ganado el juego!");
                 } else {
                     Debug.Log("no se puede caminar en ese tile");
                 }
