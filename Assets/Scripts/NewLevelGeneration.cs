@@ -42,7 +42,7 @@ public class NewLevelGeneration : MonoBehaviour {
 
     public void initializeGrid() {
         initializeLevelGeneration();
-        //Debug.Log("Grid aleatorio inicializado");
+        //Debug.Log("grid aleatorio inicializad");
     }
 
     public void applyRulesAndVisualize() {
@@ -52,14 +52,7 @@ public class NewLevelGeneration : MonoBehaviour {
     }
 
     private void Update() {
-        //if (simulationIsRunning && !isGenerationInProgress) {
-        //    if (!isGridUpdated) {
-        //        copyVisualToLogicGrid();
-        //    } else {
-        //        proceduralGenerationRules();
-        //        applyLogicToVisualGrid();
-        //    }
-        //}
+        
     }
 
     private void initializeLevelGeneration() {
@@ -114,23 +107,31 @@ public class NewLevelGeneration : MonoBehaviour {
                 int grassNeighs = 0, mudNeighs = 0, waterNeighs = 0, stoneNeighs = 0, spikesNeighs = 0, deadNeighs = 0;
                 for (int dx = -1; dx <= 1; dx++) {
                     for (int dy = -1; dy <= 1; dy++) {
-                        if (dx == 0 && dy == 0) continue;
+                        if (dx == 0 && dy == 0) {
+                            continue;
+                        } 
                         int nx = x + dx;
                         int ny = y + dy;
                         if (nx >= 0 && nx < rows && ny >= 0 && ny < columns) {
                             TileTypes neighborTile = logicGrid[nx, ny];
-                            if (neighborTile is Grass)
+                            if (neighborTile is Grass) {
                                 grassNeighs++;
-                            else if (neighborTile is Mud)
+                            }                             
+                            else if (neighborTile is Mud) {
                                 mudNeighs++;
-                            else if (neighborTile is Water)
+                            }                              
+                            else if (neighborTile is Water) {
                                 waterNeighs++;
-                            else if (neighborTile is Stone)
+                            }                               
+                            else if (neighborTile is Stone) {
                                 stoneNeighs++;
-                            else if (neighborTile is Spikes)
+                            }                               
+                            else if (neighborTile is Spikes) {
                                 spikesNeighs++;
-                            else if (neighborTile is DeadTile)
+                            }                               
+                            else if (neighborTile is DeadTile) {
                                 deadNeighs++;
+                            }
                         }
                     }
                 }
@@ -142,8 +143,6 @@ public class NewLevelGeneration : MonoBehaviour {
         isGridUpdated = true;
         applyLogicToVisualGrid();  
     }
-
-
 
     //private void proceduralGenerationRules() {
     //    Debug.Log("estado del grid antes de las reglas: ");
@@ -182,127 +181,6 @@ public class NewLevelGeneration : MonoBehaviour {
     //    printGrid(logicGrid);
     //}
 
-    private int GetTileTypeIndex(TileTypes tileActual, int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        Debug.Log($"Evaluando tile en posición con vecinos - Grass: {grassNeighs}, Mud: {mudNeighs}, Water: {waterNeighs}, Stone: {stoneNeighs}, Spikes: {spikesNeighs}, Dead: {deadNeighs}");
-        switch (tileActual) {
-            case Grass _:
-                if (deadNeighs > 0) {
-                    Debug.LogWarning("case 0: Grass (por deadNeighs > 0)");
-                    return 0;  // Grass
-                } else if (grassNeighs >= 2) {
-                    Debug.LogWarning("case 1: Stone (por grassNeighs >= 2)");
-                    return 1;  // Stone
-                } else if (mudNeighs >= 1) {
-                    Debug.LogWarning("case 2: Water (por mudNeighs >= 1)");
-                    return 2;  // Water
-                } else if (spikesNeighs >= 1) {
-                    Debug.LogWarning("case 3: Mud (por spikesNeighs >= 1)");
-                    return 3;  // Mud
-                } else {
-                    Debug.LogWarning("case 4: Spikes (por defecto)");
-                    return 4;  // Spikes
-                }
-
-            case Mud _:
-                if (deadNeighs > 0) {
-                    Debug.LogWarning("case 5: Water (por deadNeighs > 0)");
-                    return 5;  // Water
-                } else if (mudNeighs >= 2) {
-                    Debug.LogWarning("case 6: Spikes (por mudNeighs >= 2)");
-                    return 6;  // Spikes
-                } else if (grassNeighs >= 1) {
-                    Debug.LogWarning("case 7: Stone (por grassNeighs >= 1)");
-                    return 7;  // Stone
-                } else if (stoneNeighs >= 1) {
-                    Debug.LogWarning("case 8: Grass (por stoneNeighs >= 1)");
-                    return 8;  // Grass
-                } else {
-                    Debug.LogWarning("case 9: Water (por defecto)");
-                    return 9;  // Water
-                }
-
-            case Water _:
-                if (deadNeighs > 0) {
-                    Debug.LogWarning("case 10: Water (por deadNeighs > 0)");
-                    return 10;  // Water
-                } else if (waterNeighs >= 2) {
-                    Debug.LogWarning("case 11: Mud (por waterNeighs >= 2)");
-                    return 11;  // Mud
-                } else if (grassNeighs >= 1) {
-                    Debug.LogWarning("case 12: Spikes (por grassNeighs >= 1)");
-                    return 12;  // Spikes
-                } else if (stoneNeighs >= 1) {
-                    Debug.LogWarning("case 13: Mud (por stoneNeighs >= 1)");
-                    return 13;  // Mud
-                } else {
-                    Debug.LogWarning("case 14: Grass (por defecto)");
-                    return 14;  // Grass
-                }
-
-            case Spikes _:
-                if (deadNeighs > 0) {
-                    Debug.LogWarning("case 15: Spikes (por deadNeighs > 0)");
-                    return 15;  // Spikes
-                } else if (spikesNeighs >= 2) {
-                    Debug.LogWarning("case 16: Mud (por spikesNeighs >= 2)");
-                    return 16;  // Mud
-                } else if (grassNeighs >= 1) {
-                    Debug.LogWarning("case 17: Water (por grassNeighs >= 1)");
-                    return 17;  // Water
-                } else if (stoneNeighs >= 1) {
-                    Debug.LogWarning("case 18: Grass (por stoneNeighs >= 1)");
-                    return 18;  // Grass
-                } else {
-                    Debug.LogWarning("case 19: Stone (por defecto)");
-                    return 19;  // Stone
-                }
-
-            case Stone _:
-                if (deadNeighs > 0) {
-                    Debug.LogWarning("case 20: Stone (por deadNeighs > 0)");
-                    return 20;  // Stone
-                } else if (stoneNeighs >= 2) {
-                    Debug.LogWarning("case 21: Grass (por stoneNeighs >= 2)");
-                    return 21;  // Grass
-                } else if (grassNeighs >= 1) {
-                    Debug.LogWarning("case 22: Mud (por grassNeighs >= 1)");
-                    return 22;  // Mud
-                } else if (waterNeighs >= 1) {
-                    Debug.LogWarning("case 23: Spikes (por waterNeighs >= 1)");
-                    return 23;  // Spikes
-                } else {
-                    Debug.LogWarning("case 24: Water (por defecto)");
-                    return 24;  // Water
-                }
-
-            default:
-                Debug.LogWarning("default case: DeadTile (por defecto)");
-                return 25;  // DeadTile
-        }
-    }
-
-
-
-    private int checkTypeNeighs(int x, int y, System.Type tileType) {
-        int typeCount = 0;
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) {
-                    continue;
-                }
-                int checkX = x + i;
-                int checkY = y + j;
-                if (checkX >= 0 && checkX < rows && checkY >= 0 && checkY < columns) {
-                    //aca nada mas se lo paso a cada una de mis variabels locales ,osea el tipo 
-                    if (theGrid[checkX, checkY] != null && theGrid[checkX, checkY].GetType() == tileType) {
-                        typeCount++;
-                    }
-                }
-            }
-        }
-
-        return typeCount;
-    }
     private void applyLogicToVisualGrid() {
         if (!isGridUpdated) return;
         for (int i = 0; i < rows; i++) {
@@ -373,6 +251,4 @@ public class NewLevelGeneration : MonoBehaviour {
             Debug.Log("Simulación detenida");
         }
     }
-
-
 }

@@ -5,11 +5,10 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour 
 {
-    public float moveSpeed = 5f;                   
-    private bool isMoving;                          
+    public float moveSpeed = 5f;
+    private bool isMoving;
     private Vector3 targetPosition;
     public Tilemap tilemap;
-
     void Start() {
         targetPosition = transform.position;
     }
@@ -17,39 +16,61 @@ public class PlayerController : MonoBehaviour
     void Update() {
         if (!isMoving) {
             input();
+        } else {
+            moveToTarget();
         }
     }
 
     private void input() {
-        Vector3 moveDirection = Vector3.zero;
-        if (Input.GetKeyDown(KeyCode.W)) {
-            moveDirection = Vector3.up;
-        }else if (Input.GetKeyDown(KeyCode.S)) {
-            moveDirection = Vector3.down;
-        }else if (Input.GetKeyDown(KeyCode.A)) {
-            moveDirection = Vector3.left;
-        } else if (Input.GetKeyDown(KeyCode.D)) {
-            moveDirection = Vector3.right;
+        Vector3Int moveDirection = Vector3Int.zero;
+
+        if(Input.GetKeyDown(KeyCode.W)) {
+            moveDirection = Vector3Int.up;
+        } else if(Input.GetKeyDown(KeyCode.S)) {
+            moveDirection = Vector3Int.down;
+        } else if(Input.GetKeyDown(KeyCode.A)) {
+            moveDirection = Vector3Int.left;
+        } else if(Input.GetKeyDown(KeyCode.D)) {
+            moveDirection = Vector3Int.right;
         }
-        if(moveDirection != Vector3.zero) {
-            Vector3 newPosition = targetPosition + moveDirection;
-            //Collider2D tileCollider = Physics2D.OverlapPoint(newPosition);
-            Vector3Int pos = tilemap.WorldToCell(newPosition);
-            LevelGeneration levelGeneration = FindObjectOfType<LevelGeneration>();
-            if(pos.x >= 0 && pos.y >= 0 && pos.x < levelGeneration.theGrid.GetLength(0) && pos.y < levelGeneration.theGrid.GetLength(1)) {
-                TileTypes tile = levelGeneration.theGrid[pos.x, pos.y];
-                if(tile != null && tile.bIsSafeToWalk) {
-                    targetPosition = tilemap.CellToWorld(pos) + new Vector3(0.5f, 0.5f, 0);
+
+        if(moveDirection != Vector3Int.zero) {
+            Vector3Int currentGridPosition = tilemap.WorldToCell(transform.position);
+            Vector3Int newGridPosition = currentGridPosition + moveDirection;
+            if(isPosInThegrid(newGridPosition)) {
+                TileTypes tile = getTileType(newGridPosition);
+                if (tile != null && tile.bIsSafeToWalk) {
+                    targetPosition = tilemap.CellToWorld(newGridPosition) + new Vector3(0.5f, 0.5f, 0);
                     isMoving = true;
+                } else if (tile != null && tile is Spikes) {
+                    Debug.Log("detecto spikeeee");
+                    
                 } else {
-                    Debug.Log("no es seguro caminar");
+                    Debug.Log("no se puede caminar en ese tile");
                 }
             } else {
-                Debug.Log("fuera del grid");
+                Debug.Log("gfuera de thegrid");
             }
         }
-            //targetPosition = newPosition;
-            //isMoving = true;
     }
- 
+
+    private void moveToTarget() {
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, targetPosition) < 0.01f) {
+            transform.position = targetPosition;
+            isMoving = false; 
+        }
+    }
+
+    private bool isPosInThegrid(Vector3Int position) {
+        NewLevelGeneration newLevelGeneration = FindObjectOfType<NewLevelGeneration>();
+        return position.x >= 0 && position.y >= 0
+            && position.x < newLevelGeneration.theGrid.GetLength(0)
+            && position.y < newLevelGeneration.theGrid.GetLength(1);
+    }
+
+    private TileTypes getTileType(Vector3Int position) {
+        NewLevelGeneration newLevelGeneration = FindObjectOfType<NewLevelGeneration>();
+        return newLevelGeneration.theGrid[position.x, position.y];
+    }
 }
