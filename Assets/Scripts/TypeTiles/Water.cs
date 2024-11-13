@@ -7,7 +7,7 @@ public class Water : TileTypes
     // Start is called before the first frame update
     public Water() {
         //bIsAlive = true;
-        bIsSafeToWalk = false;
+        bIsSafeToWalk = true;
         walkSpeed = 0.0f;
     }
 

@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour 
 {
     public float moveSpeed = 5f;
     private bool isMoving;
     private Vector3 targetPosition;
-    public Tilemap tilemap; 
+    public Tilemap tilemap;
+    [SerializeField] string winScene = "MainMenu";
+    [SerializeField] string loseScene = "YouLoseScene";
+    private NewLevelGeneration newLevelGeneration1;
+    
+    
     //private LevelGeneration levelGeneration;
     void Start() {
         //levelGeneration = FindObjectOfType<LevelGeneration>();
         targetPosition = transform.position;
+        newLevelGeneration1 = FindObjectOfType<NewLevelGeneration>();
     }
 
     void Update() {
@@ -21,19 +28,20 @@ public class PlayerController : MonoBehaviour
         } else {
             moveToTarget();
         }
+        checkPlayerPosition();
     }
 
     private void input() {
         Vector3Int moveDirection = Vector3Int.zero;
 
         if(Input.GetKeyDown(KeyCode.W)) {
-            moveDirection = Vector3Int.up;
+            moveDirection = new Vector3Int(0,1,0);
         } else if(Input.GetKeyDown(KeyCode.S)) {
-            moveDirection = Vector3Int.down;
+            moveDirection = new Vector3Int(0,-1,0);
         } else if(Input.GetKeyDown(KeyCode.A)) {
-            moveDirection = Vector3Int.left;
+            moveDirection = new Vector3Int(-1, 0, 0);
         } else if(Input.GetKeyDown(KeyCode.D)) {
-            moveDirection = Vector3Int.right;
+            moveDirection = new Vector3Int(1, 0, 0);
         }
         if(moveDirection != Vector3Int.zero) {
             Vector3Int currentGridPosition = tilemap.WorldToCell(transform.position);
@@ -45,15 +53,31 @@ public class PlayerController : MonoBehaviour
                     isMoving = true;
                 } else if (tile != null && tile is Spikes) {
                     Debug.Log("detecto spikeeee");
+                    SceneManager.LoadScene(loseScene);
 
-                } else if (tile is FinishTile) {
-                    Debug.Log("Jugador ha ganado el juego!");
-                } else {
+                } 
+                //else if (tile is FinishTile) {
+                //    Debug.Log("Jugador ha ganado el juego!");
+                //    SceneManager.LoadScene(MainMenu);
+             //   } 
+            else {
                     Debug.Log("no se puede caminar en ese tile");
                 }
             } else {
                 Debug.Log("gfuera de thegrid");
             }
+        }
+    }
+
+    private void checkPlayerPosition() {
+        if (newLevelGeneration1 == null) {
+            return;
+        } 
+        Vector3Int playerGridPosition = tilemap.WorldToCell(transform.position);
+        Vector2Int finishTilePosition = newLevelGeneration1.finishTilePosition;
+        if (playerGridPosition.x == finishTilePosition.x && playerGridPosition.y == finishTilePosition.y) {
+            Debug.Log("Jugador ha ganado el juego!");
+            SceneManager.LoadScene("MainMenu"); 
         }
     }
 
