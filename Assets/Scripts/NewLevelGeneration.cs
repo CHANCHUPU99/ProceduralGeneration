@@ -79,14 +79,6 @@ public class NewLevelGeneration : MonoBehaviour {
         }
     }
 
-    private void copyVisualToLogicGrid() {
-        for (int i = 0; i < rows; i++) {
-            for (int c = 0; c < columns; c++) {
-                logicGrid[i, c] = theGrid[i, c];
-            }
-        }
-        isGridUpdated = false;
-    }
     public void proceduralGenerationRules() {
         TileTypes[,] newLogicGrid = new TileTypes[rows, columns];
         for(int xrows = 0; xrows < rows; xrows++) {
@@ -154,22 +146,22 @@ public class NewLevelGeneration : MonoBehaviour {
                 }
                 if (tile is Grass) {
                     tilemap.SetTile(currentGridPos, grassTile);
-                    //instantiateEmptyObj(grassObj, currentGridPos);
+                    instantiateEmptyObj(grassObj, currentGridPos);
                 } else if (tile is Mud) {
                     tilemap.SetTile(currentGridPos, mudTile);
-                    //instantiateEmptyObj(mudObj, currentGridPos);
+                    instantiateEmptyObj(mudObj, currentGridPos);
                 } else if (tile is Water) {
                     tilemap.SetTile(currentGridPos, waterTile);
-                    //instantiateEmptyObj(waterObj, currentGridPos);
+                    instantiateEmptyObj(waterObj, currentGridPos);
                 } else if (tile is Spikes) {
                     tilemap.SetTile(currentGridPos, spikesTile);
-                    //instantiateEmptyObj(spikesObj, currentGridPos);
+                    instantiateEmptyObj(spikesObj, currentGridPos);
                 } else if (tile is Stone) {
                     tilemap.SetTile(currentGridPos, stoneTile);
-                    //instantiateEmptyObj(stoneObj, currentGridPos);
+                    instantiateEmptyObj(stoneObj, currentGridPos);
                 } else if (tile is FinishTile) {
                     tilemap.SetTile(currentGridPos, finishTile);
-                    //instantiateEmptyObj(finishTileObj, currentGridPos);
+                    instantiateEmptyObj(finishTileObj, currentGridPos);
                 } else {
                     tilemap.SetTile(currentGridPos, deadTile);
                 }
@@ -218,3 +210,12 @@ public class NewLevelGeneration : MonoBehaviour {
         return randomPos;
     }
 }
+
+//private void copyVisualToLogicGrid() {
+//    for (int i = 0; i < rows; i++) {
+//        for (int c = 0; c < columns; c++) {
+//            logicGrid[i, c] = theGrid[i, c];
+//        }
+//    }
+//    isGridUpdated = false;
+//}

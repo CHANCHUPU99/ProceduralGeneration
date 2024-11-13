@@ -19,7 +19,6 @@ public class PathFIndingAStar : MonoBehaviour
         logicGrid = levelGeneration.logicGrid;
         playerPosition = levelGeneration.playerStartPosition;
         finishPosition = levelGeneration.finishTilePosition;
-        Debug.Log($"Posición del jugador: {playerPosition}, Posición del FinishTile: {finishPosition}");
         //finishPosition = new Vector2Int(playerPosition.x, playerPosition.y);
         Vector2Int currentPos = playerPosition;
         List<Vector2Int> path = new List<Vector2Int>();
@@ -33,7 +32,6 @@ public class PathFIndingAStar : MonoBehaviour
                     continue;
                 }
                 float distance = Vector2.Distance(neighbor, finishPosition);
-                Debug.Log($"Distancia de {neighbor} a FinishTile: {distance}");
                 if (distance < minDistance) {
                     minDistance = distance;
                     nextPos = neighbor;
@@ -43,10 +41,8 @@ public class PathFIndingAStar : MonoBehaviour
                 Debug.Log("no se encontró un camino a finishTile");
                 return;
             }
-
             path.Add(nextPos);
             currentPos = nextPos;
-            Debug.Log($"Posición actual del camino: {currentPos}");
         }
         foreach (Vector2Int pos in path) {
             logicGrid[pos.x, pos.y] = new PathTile();  
@@ -57,11 +53,7 @@ public class PathFIndingAStar : MonoBehaviour
 
     private List<Vector2Int> getNeighbors(Vector2Int position) {
         List<Vector2Int> neighbors = new List<Vector2Int>();
-        Vector2Int[] directions = {
-        new Vector2Int(0, 1),  
-        new Vector2Int(1, 0),  
-        new Vector2Int(0, -1), 
-        new Vector2Int(-1, 0)};
+        Vector2Int[] directions = {new Vector2Int(0, 1),new Vector2Int(1, 0),new Vector2Int(0, -1),new Vector2Int(-1, 0)};
         foreach (var dir in directions) {
             int neighX = position.x + dir.x;
             int neighY = position.y + dir.y;

@@ -28,7 +28,7 @@ public class TilesRUles
 
     private static TileTypes grassRules(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
         if (deadNeighs > 0) return new Grass();
-        //if (grassNeighs >= 2) return new Stone();
+        if (grassNeighs >= 2) return new Stone();
         if (mudNeighs >= 1) return new Water();
         if (spikesNeighs >= 1) return new Mud();
         return new Spikes();
