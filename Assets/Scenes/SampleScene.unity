@@ -205,9 +205,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1231325531}
-        m_TargetAssemblyTypeName: NewLevelGeneration, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1021125832}
+        m_TargetAssemblyTypeName: PathFIndingAStar, Assembly-CSharp
+        m_MethodName: findBestPath
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -534,7 +534,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.5518868, g: 0.5963645, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -809,12 +809,20 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.2187998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.2187998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.33
+      value: 28.205
       objectReference: {fileID: 0}
     - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.09
+      value: 1.9649999
       objectReference: {fileID: 0}
     - target: {fileID: 6310475525711734023, guid: e29a89bc88a99d74d853983bbbafa763, type: 3}
       propertyPath: m_LocalPosition.z
@@ -986,6 +994,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997804722}
   m_CullTransparentMesh: 1
+--- !u!1 &1021125831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1021125833}
+  - component: {fileID: 1021125832}
+  m_Layer: 0
+  m_Name: PathFinding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1021125832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021125831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38bd86d4444ab949a2a2f2ca8a8b7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rows: 10
+  columns: 10
+  tilemap: {fileID: 1835833246}
+  grassTile: {fileID: 11400000, guid: f3ff4073616e0854e97ecc2ef9f6d42e, type: 2}
+  mudTile: {fileID: 11400000, guid: 79c985dc3d7fcaf449f3c05e1a6c86a6, type: 2}
+  waterTile: {fileID: 11400000, guid: d0a288e5b57df69428ef0f371a8e6b7a, type: 2}
+  spikesTile: {fileID: 11400000, guid: 8f5050b2f5ad40d499d4257db845f344, type: 2}
+  stoneTile: {fileID: 11400000, guid: 4e7cd5d337279ad4c8441988136f826f, type: 2}
+  finishTile: {fileID: 11400000, guid: b0e22b962e94f3f4b97333bc5f486a1b, type: 2}
+  deadTile: {fileID: 11400000, guid: d5915b66cb2badc4e94480d62aed2255, type: 2}
+  pathTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
+--- !u!4 &1021125833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021125831}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 547.1581, y: 302.8542, z: -2.582571}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1231325528
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,7 +2748,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1231325531}
         m_TargetAssemblyTypeName: NewLevelGeneration, Assembly-CSharp
-        m_MethodName: PlaceFinalTileAndSetPlayerStart
+        m_MethodName: placeFinalTileAndSetPlayerStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2927,3 +2990,4 @@ SceneRoots:
   - {fileID: 1265528648}
   - {fileID: 782201590}
   - {fileID: 1231325530}
+  - {fileID: 1021125833}

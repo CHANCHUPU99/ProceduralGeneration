@@ -6,19 +6,19 @@ public class TilesRUles
 {
     public static TileTypes ApplyRules(TileTypes tileActual, int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
         switch (tileActual) {
-            case Grass _:
+            case Grass:
                 return grassRules(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
 
-            case Mud _:
+            case Mud:
                 return mudRules(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
 
-            case Water _:
+            case Water:
                 return waterRules(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
 
-            case Spikes _:
+            case Spikes:
                 return spikesRules(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
 
-            case Stone _:
+            case Stone:
                 return stoneRules(grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
 
             default:

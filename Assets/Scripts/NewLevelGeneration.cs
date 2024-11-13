@@ -40,16 +40,15 @@ public class NewLevelGeneration : MonoBehaviour {
     public TileTypes[,] logicGrid;
     bool isGridUpdated;
     public TileBase finalTile;
-
+   
     public void initializeGrid() {
         initializeLevelGeneration();
-        //Debug.Log("grid aleatorio inicializad");
     }
 
     public void applyRulesAndVisualize() {
         proceduralGenerationRules();
         applyLogicToVisualGrid();
-        Debug.Log("Reglas aplicadas y grid visual actualizado");
+        Debug.Log("reglas aplicadas y grid visual actualizado");
     }
 
     private void initializeLevelGeneration() {
@@ -87,30 +86,21 @@ public class NewLevelGeneration : MonoBehaviour {
         }
         isGridUpdated = false;
     }
-    private void printGrid(TileTypes[,] grid) {
-        for (int i = 0; i < rows; i++) {
-            string row = "";
-            for (int c = 0; c < columns; c++) {
-                row += grid[i, c]?.GetType().Name[0] ?? 'D';
-            }
-            Debug.Log(row);
-        }
-    }
 
     public void proceduralGenerationRules() {
         TileTypes[,] newLogicGrid = new TileTypes[rows, columns];
-        for(int x = 0; x < rows; x++) {
-            for(int y = 0; y < columns; y++) {            
+        for(int xrows = 0; xrows < rows; xrows++) {
+            for(int ycolumns = 0; ycolumns < columns; ycolumns++) {            
                 int grassNeighs = 0, mudNeighs = 0, waterNeighs = 0, stoneNeighs = 0, spikesNeighs = 0, deadNeighs = 0;
-                for (int dx = -1; dx <= 1; dx++) {
-                    for (int dy = -1; dy <= 1; dy++) {
-                        if (dx == 0 && dy == 0) {
+                for (int neighsX = -1; neighsX <= 1; neighsX++) {
+                    for (int neighsY = -1; neighsY <= 1; neighsY++) {
+                        if (neighsX == 0 && neighsY == 0) {
                             continue;
                         } 
-                        int nx = x + dx;
-                        int ny = y + dy;
-                        if (nx >= 0 && nx < rows && ny >= 0 && ny < columns) {
-                            TileTypes neighborTile = logicGrid[nx, ny];
+                        int x = xrows + neighsX;
+                        int y = ycolumns + neighsY;
+                        if (x >= 0 && x < rows && y >= 0 && y < columns) {
+                            TileTypes neighborTile = logicGrid[x, y];
                             if (neighborTile is Grass) {
                                 grassNeighs++;
                             }                             
@@ -132,51 +122,14 @@ public class NewLevelGeneration : MonoBehaviour {
                         }
                     }
                 }
-                TileTypes currentTile = logicGrid[x, y];
-                newLogicGrid[x, y] = TilesRUles.ApplyRules(currentTile, grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
+                TileTypes currentTile = logicGrid[xrows, ycolumns];
+                newLogicGrid[xrows, ycolumns] = TilesRUles.ApplyRules(currentTile, grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
             }
         }
         logicGrid = newLogicGrid;
         isGridUpdated = true;
         applyLogicToVisualGrid();  
     }
-
-    //private void proceduralGenerationRules() {
-    //    Debug.Log("estado del grid antes de las reglas: ");
-    //    printGrid(logicGrid);
-    //    TileTypes[,] tempGrid = new TileTypes[rows, columns];
-    //    for(int i = 0; i < rows; ++i) {
-    //        for(int c = 0; c < columns; ++c) {
-    //            TileTypes tileActual = logicGrid[i, c];
-    //            if (tileActual != null && (!tileActual.isEditable || tileActual is FinishTile)) {
-    //                tempGrid[i, c] = tileActual;
-    //                continue;
-    //            }
-
-    //            int grassNeighs = checkTypeNeighs(i, c, typeof(Grass));
-    //            int mudNeighs = checkTypeNeighs(i, c, typeof(Mud));
-    //            int waterNeighs = checkTypeNeighs(i, c, typeof(Water));
-    //            int stoneNeighs = checkTypeNeighs(i, c, typeof(Stone));
-    //            int spikesNeighs = checkTypeNeighs(i, c, typeof(Spikes));
-    //            int deadNeighs = checkTypeNeighs(i, c, typeof(DeadTile));
-
-    //            //int tileIndex = GetTileTypeIndex(tileActual, grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
-    //            //Debug.Log($"Posición ({i}, {c}) tiene índice de tile {tileIndex}");
-
-    //            TileTypes nuevoTipoTile = TilesRUles.ApplyRules(tileActual, grassNeighs, mudNeighs, waterNeighs, stoneNeighs, spikesNeighs, deadNeighs);
-    //            Debug.Log($"Posición ({i}, {c}) cambiada de {tileActual.GetType().Name} a {nuevoTipoTile.GetType().Name}");
-    //            tempGrid[i, c] = nuevoTipoTile;
-    //            if (tempGrid[i, c] != null && !(tempGrid[i, c] is DeadTile)) {
-    //                tempGrid[i, c].isEditable = false;
-    //            }
-    //        }
-    //    }
-
-    //    logicGrid = tempGrid;
-    //    isGridUpdated = true;
-    //    Debug.Log("Reglas aplicadas y grid lógico actualizado");
-    //    printGrid(logicGrid);
-    //}
 
     private void applyLogicToVisualGrid() {
         if (!isGridUpdated) return;
@@ -226,7 +179,6 @@ public class NewLevelGeneration : MonoBehaviour {
                 instantiatedPositions.Add(currentGridPos);
             }
         }
-
     }
 
     void instantiateEmptyObj(GameObject gameObj, Vector3Int thegridPos) {
@@ -240,7 +192,7 @@ public class NewLevelGeneration : MonoBehaviour {
         }
     }
 
-    public void toggleSimulation() {
+    public void isRunniiiiing() {
         simulationIsRunning = !simulationIsRunning;
         if(simulationIsRunning) {
             Debug.Log("Simulación iniciada");
@@ -248,9 +200,9 @@ public class NewLevelGeneration : MonoBehaviour {
             Debug.Log("Simulación detenida");
         }
     }
-    public void PlaceFinalTileAndSetPlayerStart() {
-        Vector2Int finalTilePos = GetRandomSafePosition();
-        Vector2Int playerStartPos = GetRandomSafePosition();
+    public void placeFinalTileAndSetPlayerStart() {
+        Vector2Int finalTilePos = getRandomSafePosition();
+        Vector2Int playerStartPos = getRandomSafePosition();
         theGrid[finalTilePos.x, finalTilePos.y] = new FinishTile();
         Vector3Int tilemapPosition = new Vector3Int(finalTilePos.x, finalTilePos.y, 0);
         Tilemap tilemap = FindObjectOfType<Tilemap>();
@@ -258,7 +210,7 @@ public class NewLevelGeneration : MonoBehaviour {
         GameObject player = Instantiate(Playeeeeer);
         player.transform.position = tilemap.CellToWorld(new Vector3Int(playerStartPos.x, playerStartPos.y, 0)) + new Vector3(0.5f, 0.5f, 0);
     }
-    private Vector2Int GetRandomSafePosition() {
+    public Vector2Int getRandomSafePosition() {
         Vector2Int randomPos;
         do {
             randomPos = new Vector2Int(Random.Range(0, theGrid.GetLength(0)), Random.Range(0, theGrid.GetLength(1)));
