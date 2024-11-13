@@ -9,16 +9,19 @@ public class TileTypes
     public float walkSpeed;
     public bool isEditable = true;
     public bool isChanging;
+    public int weight;
     //public tileTypes tileTypesEnum;
     public TileTypes() {
         bIsAlive = false;
         isEditable = true;
         isChanging = true;
+        weight = 0;
     }
-    public TileTypes(bool _isAlive, bool _isSafeToWalk, float _walkSpeed) {
+    public TileTypes(bool _isAlive, bool _isSafeToWalk, float _walkSpeed, int _weight) {
         bIsAlive = _isAlive;
         bIsSafeToWalk = _isSafeToWalk;
         walkSpeed = _walkSpeed;
+        weight = _weight;
         isEditable = true; 
         isChanging = true;
     }

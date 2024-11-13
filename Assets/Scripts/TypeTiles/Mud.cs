@@ -8,6 +8,7 @@ public class Mud : TileTypes
         //bIsAlive = true;
         bIsSafeToWalk = true;
         walkSpeed = 0.8f;
+        weight = 3;
     }
 
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {

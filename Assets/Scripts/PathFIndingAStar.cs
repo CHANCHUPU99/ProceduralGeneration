@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEditor.PlayerSettings;
 
 public class PathFIndingAStar : MonoBehaviour
 {
@@ -15,28 +14,27 @@ public class PathFIndingAStar : MonoBehaviour
     private Vector2Int finishPosition;
     [SerializeField]int maxIt = 1000;
     [SerializeField] int itCount = 0;
-
-
     public void findBestPath() {
         NewLevelGeneration levelGeneration = FindObjectOfType<NewLevelGeneration>();
         logicGrid = levelGeneration.logicGrid;
         playerPosition = levelGeneration.playerStartPosition;
         finishPosition = levelGeneration.finishTilePosition;
-        //finishPosition = new Vector2Int(playerPosition.x, playerPosition.y);
         Vector2Int currentPos = playerPosition;
         List<Vector2Int> path = new List<Vector2Int>();
         path.Add(currentPos);
         while (currentPos != finishPosition) {
             List<Vector2Int> neighbors = getNeighbors(currentPos);
             Vector2Int nextPos = currentPos;
-            float minDistance = 10000f;
+            float minDistance = 1000f;
             foreach (Vector2Int neighbor in neighbors) {
                 if (logicGrid[neighbor.x, neighbor.y] is Spikes || logicGrid[neighbor.x, neighbor.y] is Stone) {
                     continue;
                 }
+                float weight = logicGrid[neighbor.x, neighbor.y].weight;
                 float distance = Vector2.Distance(neighbor, finishPosition);
-                if (distance < minDistance) {
-                    minDistance = distance;
+                float costtt = weight * distance;
+                if (costtt < minDistance) {
+                    minDistance = costtt;
                     nextPos = neighbor;
                 }
             }
@@ -53,7 +51,7 @@ public class PathFIndingAStar : MonoBehaviour
             }
         }
         foreach (Vector2Int pos in path) {
-            logicGrid[pos.x, pos.y] = new PathTile();  
+            logicGrid[pos.x, pos.y] = new PathTile();
         }
         applyLogicToVisualGrid(path);
         Debug.Log("camino encontrado!!!!!!!!!");

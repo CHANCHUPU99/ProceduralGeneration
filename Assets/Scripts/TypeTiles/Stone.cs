@@ -9,6 +9,7 @@ public class Stone : TileTypes
         //bIsAlive = true;
         bIsSafeToWalk = false;
         walkSpeed = 0f;
+        weight = 100;
     }
 
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
