@@ -13,6 +13,9 @@ public class PathFIndingAStar : MonoBehaviour
     public Tile grassTile, mudTile, waterTile, spikesTile, stoneTile, finishTile, deadTile, pathTile;
     private Vector2Int playerPosition;
     private Vector2Int finishPosition;
+    [SerializeField]int maxIt = 1000;
+    [SerializeField] int itCount = 0;
+
 
     public void findBestPath() {
         NewLevelGeneration levelGeneration = FindObjectOfType<NewLevelGeneration>();
@@ -43,6 +46,11 @@ public class PathFIndingAStar : MonoBehaviour
             }
             path.Add(nextPos);
             currentPos = nextPos;
+            itCount++;
+            if (itCount >= maxIt) {
+                Debug.LogWarning("paso el limimteeeee!!!!");
+                return;
+            }
         }
         foreach (Vector2Int pos in path) {
             logicGrid[pos.x, pos.y] = new PathTile();  
