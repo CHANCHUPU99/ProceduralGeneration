@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
     private Vector3 targetPosition;
     public Tilemap tilemap; 
-    private LevelGeneration levelGeneration;
+    //private LevelGeneration levelGeneration;
     void Start() {
-        levelGeneration = FindObjectOfType<LevelGeneration>();
+        //levelGeneration = FindObjectOfType<LevelGeneration>();
         targetPosition = transform.position;
     }
 
@@ -35,11 +35,10 @@ public class PlayerController : MonoBehaviour
         } else if(Input.GetKeyDown(KeyCode.D)) {
             moveDirection = Vector3Int.right;
         }
-
         if(moveDirection != Vector3Int.zero) {
             Vector3Int currentGridPosition = tilemap.WorldToCell(transform.position);
             Vector3Int newGridPosition = currentGridPosition + moveDirection;
-            if(isPosInThegrid(newGridPosition)) {
+            if(isPLayerOnThegrid(newGridPosition)) {
                 TileTypes tile = getTileType(newGridPosition);
                 if (tile != null && tile.bIsSafeToWalk) {
                     targetPosition = tilemap.CellToWorld(newGridPosition) + new Vector3(0.5f, 0.5f, 0);
@@ -66,7 +65,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool isPosInThegrid(Vector3Int position) {
+    private bool isPLayerOnThegrid(Vector3Int position) {
         NewLevelGeneration newLevelGeneration = FindObjectOfType<NewLevelGeneration>();
         return position.x >= 0 && position.y >= 0
             && position.x < newLevelGeneration.theGrid.GetLength(0)

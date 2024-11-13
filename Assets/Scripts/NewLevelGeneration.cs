@@ -40,7 +40,8 @@ public class NewLevelGeneration : MonoBehaviour {
     public TileTypes[,] logicGrid;
     bool isGridUpdated;
     public TileBase finalTile;
-   
+    public Vector2Int playerStartPosition { get; private set; }
+    public Vector2Int finishTilePosition { get; private set; }
     public void initializeGrid() {
         initializeLevelGeneration();
     }
@@ -86,7 +87,6 @@ public class NewLevelGeneration : MonoBehaviour {
         }
         isGridUpdated = false;
     }
-
     public void proceduralGenerationRules() {
         TileTypes[,] newLogicGrid = new TileTypes[rows, columns];
         for(int xrows = 0; xrows < rows; xrows++) {
@@ -149,29 +149,27 @@ public class NewLevelGeneration : MonoBehaviour {
             for (int c = 0; c < columns; c++) {
                 Vector3Int currentGridPos = new Vector3Int(i, c, 0);
                 TileTypes tile = logicGrid[i, c]; 
-
                 if (instantiatedPositions.Contains(currentGridPos)) {
                     continue;
                 }
-
                 if (tile is Grass) {
                     tilemap.SetTile(currentGridPos, grassTile);
-                    instantiateEmptyObj(grassObj, currentGridPos);
+                    //instantiateEmptyObj(grassObj, currentGridPos);
                 } else if (tile is Mud) {
                     tilemap.SetTile(currentGridPos, mudTile);
-                    instantiateEmptyObj(mudObj, currentGridPos);
+                    //instantiateEmptyObj(mudObj, currentGridPos);
                 } else if (tile is Water) {
                     tilemap.SetTile(currentGridPos, waterTile);
-                    instantiateEmptyObj(waterObj, currentGridPos);
+                    //instantiateEmptyObj(waterObj, currentGridPos);
                 } else if (tile is Spikes) {
                     tilemap.SetTile(currentGridPos, spikesTile);
-                    instantiateEmptyObj(spikesObj, currentGridPos);
+                    //instantiateEmptyObj(spikesObj, currentGridPos);
                 } else if (tile is Stone) {
                     tilemap.SetTile(currentGridPos, stoneTile);
-                    instantiateEmptyObj(stoneObj, currentGridPos);
+                    //instantiateEmptyObj(stoneObj, currentGridPos);
                 } else if (tile is FinishTile) {
                     tilemap.SetTile(currentGridPos, finishTile);
-                    instantiateEmptyObj(finishTileObj, currentGridPos);
+                    //instantiateEmptyObj(finishTileObj, currentGridPos);
                 } else {
                     tilemap.SetTile(currentGridPos, deadTile);
                 }
@@ -186,9 +184,9 @@ public class NewLevelGeneration : MonoBehaviour {
         Collider2D[] colliders = Physics2D.OverlapPointAll(worldPosition);
         if (colliders.Length == 0) {
             GameObject instance = Instantiate(gameObj, worldPosition, Quaternion.identity);
-            Debug.Log($"Instanciado {gameObj.name} en {worldPosition}");
+           // Debug.Log($"Instanciado {gameObj.name} en {worldPosition}");
         } else {
-            Debug.LogWarning($"El objeto {gameObj.name} ya existe en {worldPosition}. No se instancia duplicados.");
+            //Debug.LogWarning($"El objeto {gameObj.name} ya existe en {worldPosition}. No se instancia duplicados.");
         }
     }
 
@@ -204,6 +202,8 @@ public class NewLevelGeneration : MonoBehaviour {
         Vector2Int finalTilePos = getRandomSafePosition();
         Vector2Int playerStartPos = getRandomSafePosition();
         theGrid[finalTilePos.x, finalTilePos.y] = new FinishTile();
+        finishTilePosition = finalTilePos;
+        playerStartPosition = playerStartPos;
         Vector3Int tilemapPosition = new Vector3Int(finalTilePos.x, finalTilePos.y, 0);
         Tilemap tilemap = FindObjectOfType<Tilemap>();
         tilemap.SetTile(tilemapPosition, finalTile);

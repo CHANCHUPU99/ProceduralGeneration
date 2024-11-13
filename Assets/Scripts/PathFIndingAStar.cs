@@ -17,21 +17,23 @@ public class PathFIndingAStar : MonoBehaviour
     public void findBestPath() {
         NewLevelGeneration levelGeneration = FindObjectOfType<NewLevelGeneration>();
         logicGrid = levelGeneration.logicGrid;
-
-        playerPosition = new Vector2Int(playerPosition.x, playerPosition.y);
-        finishPosition = new Vector2Int(playerPosition.x, playerPosition.y);
+        playerPosition = levelGeneration.playerStartPosition;
+        finishPosition = levelGeneration.finishTilePosition;
+        Debug.Log($"Posición del jugador: {playerPosition}, Posición del FinishTile: {finishPosition}");
+        //finishPosition = new Vector2Int(playerPosition.x, playerPosition.y);
         Vector2Int currentPos = playerPosition;
         List<Vector2Int> path = new List<Vector2Int>();
         path.Add(currentPos);
         while (currentPos != finishPosition) {
             List<Vector2Int> neighbors = getNeighbors(currentPos);
             Vector2Int nextPos = currentPos;
-            float minDistance = 1000f;
+            float minDistance = 10000f;
             foreach (Vector2Int neighbor in neighbors) {
                 if (logicGrid[neighbor.x, neighbor.y] is Spikes || logicGrid[neighbor.x, neighbor.y] is Stone) {
                     continue;
                 }
-                float distance = Vector2Int.Distance(neighbor, finishPosition);
+                float distance = Vector2.Distance(neighbor, finishPosition);
+                Debug.Log($"Distancia de {neighbor} a FinishTile: {distance}");
                 if (distance < minDistance) {
                     minDistance = distance;
                     nextPos = neighbor;
@@ -44,6 +46,7 @@ public class PathFIndingAStar : MonoBehaviour
 
             path.Add(nextPos);
             currentPos = nextPos;
+            Debug.Log($"Posición actual del camino: {currentPos}");
         }
         foreach (Vector2Int pos in path) {
             logicGrid[pos.x, pos.y] = new PathTile();  
@@ -54,16 +57,16 @@ public class PathFIndingAStar : MonoBehaviour
 
     private List<Vector2Int> getNeighbors(Vector2Int position) {
         List<Vector2Int> neighbors = new List<Vector2Int>();
-        for(int rows = -1; rows <= 1; rows++) {
-            for(int columns = -1; columns <= 1; columns++) {
-                if (rows == 0 && columns == 0) continue;
-
-                int neighX = position.x + rows;
-                int neighY = position.y + columns;
-
-                if (neighX >= 0 && neighX < rows && neighY >= 0 && neighY < columns) {
-                    neighbors.Add(new Vector2Int(neighX, neighY));
-                }
+        Vector2Int[] directions = {
+        new Vector2Int(0, 1),  
+        new Vector2Int(1, 0),  
+        new Vector2Int(0, -1), 
+        new Vector2Int(-1, 0)};
+        foreach (var dir in directions) {
+            int neighX = position.x + dir.x;
+            int neighY = position.y + dir.y;
+            if(neighX >= 0 && neighX < rows && neighY >= 0 && neighY < columns) {
+                neighbors.Add(new Vector2Int(neighX, neighY));
             }
         }
         return neighbors;
@@ -75,6 +78,9 @@ public class PathFIndingAStar : MonoBehaviour
             TileTypes tile = logicGrid[localTile.x, localTile.y];
             if(tile is PathTile) {
                 tilemap.SetTile(worldPos, pathTile);
+                Debug.Log($"Tile de camino pintado en: {worldPos}");
+            } else {
+                updateVisualGrid(worldPos, tile);
             }
         }
     }

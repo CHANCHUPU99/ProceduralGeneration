@@ -27,16 +27,14 @@ public class TilesRUles
     }
 
     private static TileTypes grassRules(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        Debug.LogWarning("reglas en grass");
         if (deadNeighs > 0) return new Grass();
-        if (grassNeighs >= 2) return new Stone();
+        //if (grassNeighs >= 2) return new Stone();
         if (mudNeighs >= 1) return new Water();
         if (spikesNeighs >= 1) return new Mud();
         return new Spikes();
     }
 
     private static TileTypes mudRules(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        Debug.LogWarning("reglas en mud");
         if (deadNeighs > 0) return new Water();
         if (mudNeighs >= 2) return new Spikes();
         if (grassNeighs >= 1) return new Stone();
@@ -45,7 +43,6 @@ public class TilesRUles
     }
 
     private static TileTypes waterRules(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        Debug.LogWarning("reglas en water");
         if (deadNeighs > 0) return new Water();
         if (waterNeighs >= 2) return new Mud();
         if (grassNeighs >= 1) return new Spikes();
@@ -54,7 +51,6 @@ public class TilesRUles
     }
 
     private static TileTypes spikesRules(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        Debug.LogWarning("reglas en spikes");
         if (deadNeighs > 0) return new Spikes();
         if (spikesNeighs >= 2) return new Mud();
         if (grassNeighs >= 1) return new Water();
@@ -63,7 +59,6 @@ public class TilesRUles
     }
 
     private static TileTypes stoneRules(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        Debug.LogWarning("reglas en stone");
         if (deadNeighs > 0) return new Stone();
         if (stoneNeighs >= 2) return new Grass();
         if (grassNeighs >= 1) return new Mud();
