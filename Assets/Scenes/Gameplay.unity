@@ -5555,11 +5555,11 @@ MonoBehaviour:
   drawedTile: {fileID: 11400000, guid: b0e22b962e94f3f4b97333bc5f486a1b, type: 2}
   theGridIsFull: 1
   grassTile: {fileID: 11400000, guid: f3ff4073616e0854e97ecc2ef9f6d42e, type: 2}
-  mudTile: {fileID: 11400000, guid: 79c985dc3d7fcaf449f3c05e1a6c86a6, type: 2}
+  mudTile: {fileID: 11400000, guid: 4d9c269288141464cb522124a4f65284, type: 2}
   spikesTile: {fileID: 11400000, guid: 8f5050b2f5ad40d499d4257db845f344, type: 2}
   stoneTile: {fileID: 11400000, guid: 4e7cd5d337279ad4c8441988136f826f, type: 2}
   waterTile: {fileID: 11400000, guid: d0a288e5b57df69428ef0f371a8e6b7a, type: 2}
-  finishTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
+  finishTile: {fileID: 11400000, guid: b726555a4b42dd64797e26b14bbc3a1c, type: 2}
   rows: 10
   columns: 10
   initialRowPos: 0
@@ -5573,7 +5573,7 @@ MonoBehaviour:
   deadObj: {fileID: 995259148745133330, guid: 49a0e3e4abbbf784cb30067360ffc6ad, type: 3}
   Playeeeeer: {fileID: 1488777106}
   finishTileObj: {fileID: 8805122379561259186, guid: 422bbf5d2565eb646abfb58031e4f517, type: 3}
-  finalTile: {fileID: 11400000, guid: b0e22b962e94f3f4b97333bc5f486a1b, type: 2}
+  finalTile: {fileID: 11400000, guid: b726555a4b42dd64797e26b14bbc3a1c, type: 2}
 --- !u!1 &1234741361
 GameObject:
   m_ObjectHideFlags: 0
