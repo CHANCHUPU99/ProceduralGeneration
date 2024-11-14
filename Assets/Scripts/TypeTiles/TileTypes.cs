@@ -10,6 +10,9 @@ public class TileTypes
     public bool isEditable = true;
     public bool isChanging;
     public int weight;
+    public TileTypes previousTile;
+    public float cosst = float.MaxValue;
+    public Vector2Int pos;
     //public tileTypes tileTypesEnum;
     public TileTypes() {
         bIsAlive = false;
@@ -17,17 +20,17 @@ public class TileTypes
         isChanging = true;
         weight = 0;
     }
-    public TileTypes(bool _isAlive, bool _isSafeToWalk, float _walkSpeed, int _weight) {
+    public TileTypes(bool _isAlive, bool _isSafeToWalk, float _walkSpeed, int _weight, Vector2Int _pos) {
         bIsAlive = _isAlive;
         bIsSafeToWalk = _isSafeToWalk;
         walkSpeed = _walkSpeed;
         weight = _weight;
         isEditable = true; 
         isChanging = true;
+        pos = _pos;
     }
-
-    public virtual void tileValues() {
-
+    public TileTypes(Vector2Int _pos) {
+        pos = _pos;
     }
 
     public virtual TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs,int deadNeighs) {

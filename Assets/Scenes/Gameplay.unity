@@ -4601,8 +4601,8 @@ MonoBehaviour:
   stoneTile: {fileID: 11400000, guid: 4e7cd5d337279ad4c8441988136f826f, type: 2}
   finishTile: {fileID: 11400000, guid: b0e22b962e94f3f4b97333bc5f486a1b, type: 2}
   deadTile: {fileID: 11400000, guid: d5915b66cb2badc4e94480d62aed2255, type: 2}
-  pathTile: {fileID: 11400000, guid: 15e6d77298dfc084db86ba32a9e2d430, type: 2}
-  maxIt: 1000
+  pathTile: {fileID: 11400000, guid: 37a30764d37c8a94c86af54635ae77a8, type: 2}
+  maxIt: 10000
   itCount: 0
 --- !u!4 &1021125833
 Transform:

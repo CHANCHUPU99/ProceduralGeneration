@@ -10,9 +10,11 @@ public class Spikes : TileTypes
         walkSpeed = 0.5f;
         weight = 100;
     }
+    public Spikes(Vector2Int _pos) {
+        pos = _pos;
+    }
 
     public override TileTypes neighsTypeCount(int grassNeighs, int mudNeighs, int waterNeighs, int stoneNeighs, int spikesNeighs, int deadNeighs) {
-        Debug.Log($"Spikes: deadNeighs={deadNeighs}, grassNeighs={grassNeighs}, mudNeighs={mudNeighs}, waterNeighs={waterNeighs}, stoneNeighs={stoneNeighs}, spikesNeighs={spikesNeighs}");
         if (deadNeighs > 0) {
             return new Spikes();
         } else if (spikesNeighs >= 2) {
